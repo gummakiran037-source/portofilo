@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUMMA KIRAN — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            flux: {
+              bg: '#050505',
+              panel: '#0A0A0A',
+              border: '#1F1F1F',
+              cyan: '#7DFDFE',
+              cyanDim: 'rgba(125, 253, 254, 0.1)',
+              text: '#E5E5E5',
+              muted: '#888888'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          letterSpacing: {
+            tight: '-0.025em',
+            tighter: '-0.04em'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="grid-bg">
+  <!-- Noise & CRT overlays -->
+  <div class="noise-overlay"></div>
+  <div class="crt-lines"></div>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="fixed top-20 right-4 z-50 flex flex-col gap-3"></div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="fixed top-0 left-0 right-0 z-40 h-14 bg-flux-bg/90 backdrop-blur-sm border-b border-flux-border">
+    <div class="max-w-7xl mx-auto h-full px-4 md:px-6 lg:px-8 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#header" class="font-mono text-xs tracking-wider text-flux-cyan flex items-center gap-2">
+        <span class="w-2 h-2 bg-flux-cyan rounded-none pulse-dot"></span>
+        GUMMA.KIRAN
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="nav-link relative text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors duration-150 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:bg-flux-cyan after:transition-all after:duration-150 hover:after:w-full">ABOUT</a>
+        <a href="#skills" class="nav-link relative text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors duration-150 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:bg-flux-cyan after:transition-all after:duration-150 hover:after:w-full">SKILLS</a>
+        <a href="#projects" class="nav-link relative text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors duration-150 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:bg-flux-cyan after:transition-all after:duration-150 hover:after:w-full">PROJECTS</a>
+        <a href="#resume" class="nav-link relative text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors duration-150 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:bg-flux-cyan after:transition-all after:duration-150 hover:after:w-full">RESUME</a>
+        <a href="#contact" class="nav-link relative text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors duration-150 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:bg-flux-cyan after:transition-all after:duration-150 hover:after:w-full">CONTACT</a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="mobile-toggle" class="md:hidden text-flux-muted hover:text-flux-cyan transition-colors">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-flux-panel border-b border-flux-border">
+      <div class="px-4 py-4 flex flex-col gap-4">
+        <a href="#about" class="mobile-nav-link text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors">ABOUT</a>
+        <a href="#skills" class="mobile-nav-link text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors">SKILLS</a>
+        <a href="#projects" class="mobile-nav-link text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors">PROJECTS</a>
+        <a href="#resume" class="mobile-nav-link text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors">RESUME</a>
+        <a href="#contact" class="mobile-nav-link text-xs font-mono tracking-wide text-flux-muted hover:text-flux-cyan transition-colors">CONTACT</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HEADER / HERO ==================== -->
+  <header id="header" class="relative min-h-[70vh] flex items-center pt-14 overflow-hidden">
+    <div class="scan-line"></div>
+
+    <!-- Background grid glow -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div class="w-[600px] h-[600px] rounded-full" style="background: radial-gradient(ellipse at center, rgba(125, 253, 254, 0.06), transparent 70%);"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 w-full relative z-10">
+      <div class="flex flex-col items-center text-center py-16 md:py-24">
+        <!-- Status badge -->
+        <div class="fade-in-up stagger-1 mb-6 inline-flex items-center gap-2 px-3 py-1.5 border border-flux-border rounded-none bg-flux-cyanDim">
+          <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full pulse-dot"></span>
+          <span class="font-mono text-[10px] tracking-widest uppercase text-flux-muted">Available for work</span>
+        </div>
+
+        <!-- Name -->
+        <h1 class="fade-in-up stagger-2 text-4xl md:text-6xl font-medium tracking-tighter leading-[1.1] text-flux-text">
+          Gumma Kiran
+        </h1>
+
+        <!-- Tagline with typing effect -->
+        <div class="fade-in-up stagger-3 mt-4 flex items-center gap-1 font-mono text-sm md:text-base text-flux-muted">
+          <span class="text-flux-cyan">~</span>
+          <span id="typed-text"></span>
+          <span class="cursor-blink text-flux-cyan">▊</span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="fade-in-up stagger-4 mt-10 flex flex-col sm:flex-row items-center gap-4">
+          <a href="#projects" class="group relative inline-flex items-center gap-2 px-6 py-3 bg-flux-cyan text-black font-mono text-xs tracking-wide font-medium hover:bg-white transition-colors duration-150">
+            VIEW PROJECTS
+            <i data-lucide="arrow-down-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform"></i>
+          </a>
+          <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 border border-flux-border text-flux-muted font-mono text-xs tracking-wide hover:border-flux-muted hover:text-flux-text transition-all duration-150">
+            GET IN TOUCH
+          </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="fade-in-up stagger-5 mt-16 flex flex-col items-center gap-2 text-flux-muted">
+          <span class="font-mono text-[10px] tracking-widest uppercase">Scroll</span>
+          <div class="w-px h-8 bg-gradient-to-b from-flux-border to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== ABOUT SECTION ==================== -->
+  <section id="about" class="py-20 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <!-- Section label -->
+      <div class="fade-in-up mb-12 flex items-center gap-4">
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-cyan">01</span>
+        <div class="w-12 h-px bg-flux-border"></div>
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-muted">About Me</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+        <!-- Image -->
+        <div class="fade-in-up stagger-1 md:col-span-4">
+          <div class="panel-glow corner-accent bg-flux-panel border border-flux-border p-[1px]">
+            <div class="relative overflow-hidden aspect-[3/4] bg-flux-panel">
+              <img
+                src="profile.jpeg"
+                alt="Alex Chen portrait"
+                class="w-full h-full object-cover opacity-70 hover:opacity-90 transition-opacity duration-500"
+                loading="lazy"
+              >
+              <!-- Overlay info -->
+              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-flux-bg/90 to-transparent">
+                <div class="font-mono text-[10px] tracking-widest uppercase text-flux-cyan mb-1">Based in</div>
+                <div class="font-mono text-xs text-flux-text">San Francisco, CA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="md:col-span-8 flex flex-col justify-center">
+          <h2 class="fade-in-up stagger-2 text-2xl md:text-3xl font-medium tracking-tight text-flux-text mb-6">
+            Crafting digital experiences<br>with precision and purpose.
+          </h2>
+          <div class="space-y-4">
+            <p class="fade-in-up stagger-3 text-sm md:text-base text-flux-muted leading-relaxed">
+              I'm a full-stack developer with 5+ years of experience building web applications that are fast, accessible, and beautifully designed. I specialize in React, Node.js, and cloud architecture, with a keen eye for detail and a passion for clean code.
+            </p>
+            <p class="fade-in-up stagger-4 text-sm md:text-base text-flux-muted leading-relaxed">
+              Previously at Stripe and Vercel, I've contributed to products used by millions. I believe great software is invisible — it simply works. When I'm not coding, you'll find me exploring photography, contributing to open-source, or brewing the perfect cup of coffee.
+            </p>
+          </div>
+
+          <!-- Quick stats -->
+          <div class="fade-in-up stagger-5 mt-8 grid grid-cols-3 gap-4">
+            <div class="border-t border-flux-border pt-4">
+              <div class="font-mono text-2xl md:text-3xl font-medium text-flux-text tracking-tight">5+</div>
+              <div class="font-mono text-[10px] tracking-widest uppercase text-flux-muted mt-1">Years Exp</div>
+            </div>
+            <div class="border-t border-flux-border pt-4">
+              <div class="font-mono text-2xl md:text-3xl font-medium text-flux-text tracking-tight">40+</div>
+              <div class="font-mono text-[10px] tracking-widest uppercase text-flux-muted mt-1">Projects</div>
+            </div>
+            <div class="border-t border-flux-border pt-4">
+              <div class="font-mono text-2xl md:text-3xl font-medium text-flux-text tracking-tight">15+</div>
+              <div class="font-mono text-[10px] tracking-widest uppercase text-flux-muted mt-1">Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS SECTION ==================== -->
+  <section id="skills" class="py-20 md:py-24 border-t border-flux-border">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <!-- Section label -->
+      <div class="fade-in-up mb-12 flex items-center gap-4">
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-cyan">02</span>
+        <div class="w-12 h-px bg-flux-border"></div>
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-muted">Skills & Expertise</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <!-- Left: Skill bars -->
+        <div class="space-y-6">
+          <h2 class="fade-in-up text-2xl md:text-3xl font-medium tracking-tight text-flux-text mb-8">
+            Technical proficiency
+          </h2>
+
+          <!-- Skill items -->
+          <div class="fade-in-up stagger-1 skill-item">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-mono text-xs text-flux-text">React / Next.js</span>
+              <span class="font-mono text-[10px] text-flux-cyan">95%</span>
+            </div>
+            <div class="w-full h-1 bg-flux-border overflow-hidden">
+              <div class="skill-bar-fill h-full bg-flux-cyan" style="width: 95%; box-shadow: 0 0 10px #7DFDFE;" data-width="95"></div>
+            </div>
+          </div>
+
+          <div class="fade-in-up stagger-2 skill-item">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-mono text-xs text-flux-text">TypeScript</span>
+              <span class="font-mono text-[10px] text-flux-cyan">90%</span>
+            </div>
+            <div class="w-full h-1 bg-flux-border overflow-hidden">
+              <div class="skill-bar-fill h-full bg-flux-cyan" style="width: 90%; box-shadow: 0 0 10px #7DFDFE;" data-width="90"></div>
+            </div>
+          </div>
+
+          <div class="fade-in-up stagger-3 skill-item">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-mono text-xs text-flux-text">Node.js / Express</span>
+              <span class="font-mono text-[10px] text-flux-cyan">88%</span>
+            </div>
+            <div class="w-full h-1 bg-flux-border overflow-hidden">
+              <div class="skill-bar-fill h-full bg-flux-cyan" style="width: 88%; box-shadow: 0 0 10px #7DFDFE;" data-width="88"></div>
+            </div>
+          </div>
+
+          <div class="fade-in-up stagger-4 skill-item">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-mono text-xs text-flux-text">Python / Django</span>
+              <span class="font-mono text-[10px] text-flux-cyan">82%</span>
+            </div>
+            <div class="w-full h-1 bg-flux-border overflow-hidden">
+              <div class="skill-bar-fill h-full bg-flux-cyan" style="width: 82%; box-shadow: 0 0 10px #7DFDFE;" data-width="82"></div>
+            </div>
+          </div>
+
+          <div class="fade-in-up stagger-5 skill-item">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-mono text-xs text-flux-text">AWS / Cloud Architecture</span>
+              <span class="font-mono text-[10px] text-flux-cyan">85%</span>
+            </div>
+            <div class="w-full h-1 bg-flux-border overflow-hidden">
+              <div class="skill-bar-fill h-full bg-flux-cyan" style="width: 85%; box-shadow: 0 0 10px #7DFDFE;" data-width="85"></div>
+            </div>
+          </div>
+
+          <div class="fade-in-up stagger-6 skill-item">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-mono text-xs text-flux-text">PostgreSQL / MongoDB</span>
+              <span class="font-mono text-[10px] text-flux-cyan">80%</span>
+            </div>
+            <div class="w-full h-1 bg-flux-border overflow-hidden">
+              <div class="skill-bar-fill h-full bg-flux-cyan" style="width: 80%; box-shadow: 0 0 10px #7DFDFE;" data-width="80"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Skill tags grid -->
+        <div>
+          <h2 class="fade-in-up text-2xl md:text-3xl font-medium tracking-tight text-flux-text mb-8">
+            Tools & technologies
+          </h2>
+
+          <div class="fade-in-up stagger-2 flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">JavaScript</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">TypeScript</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">React</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Next.js</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Vue.js</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Tailwind CSS</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Node.js</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Express</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Python</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Django</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">GraphQL</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">REST APIs</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">PostgreSQL</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">MongoDB</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Redis</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Docker</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">AWS</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Vercel</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Git</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Figma</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">CI/CD</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Jest</span>
+            <span class="px-3 py-1.5 border border-flux-border font-mono text-[11px] text-flux-muted hover:border-flux-cyan hover:text-flux-cyan transition-all duration-150 cursor-default">Cypress</span>
+          </div>
+
+          <!-- Mini terminal -->
+          <div class="fade-in-up stagger-4 mt-8 panel-glow bg-flux-panel border border-flux-border">
+            <div class="flex items-center gap-2 px-4 py-2 border-b border-flux-border">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+              <span class="font-mono text-[10px] text-flux-muted ml-2">terminal</span>
+            </div>
+            <div class="p-4 font-mono text-xs leading-relaxed">
+              <div class="text-flux-muted"><span class="text-flux-cyan">alex@portfolio</span>:<span class="text-flux-text">~</span>$ cat philosophy.txt</div>
+              <div class="text-flux-muted mt-2">"Write code that your future self</div>
+              <div class="text-flux-muted">will thank you for. Ship often,</div>
+              <div class="text-flux-muted">learn always, and never stop</div>
+              <div class="text-flux-muted">questioning the status quo."</div>
+              <div class="mt-2 text-flux-muted"><span class="text-flux-cyan">alex@portfolio</span>:<span class="text-flux-text">~</span>$ <span class="cursor-blink text-flux-cyan">▊</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS SECTION ==================== -->
+  <section id="projects" class="py-20 md:py-24 border-t border-flux-border">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <!-- Section label -->
+      <div class="fade-in-up mb-12 flex items-center gap-4">
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-cyan">03</span>
+        <div class="w-12 h-px bg-flux-border"></div>
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-muted">Selected Projects</span>
+      </div>
+
+      <h2 class="fade-in-up text-2xl md:text-3xl font-medium tracking-tight text-flux-text mb-12">
+        Recent work I'm proud of
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Project 1 -->
+        <div class="fade-in-up stagger-1 project-card group panel-glow corner-accent bg-flux-panel border border-flux-border hover:border-flux-cyan/30 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="relative overflow-hidden aspect-[16/10]">
+            <img
+              src="https://picsum.photos/seed/project-dashboard/800/500.jpg"
+              alt="NovaPay Dashboard"
+              class="project-image w-full h-full object-cover opacity-60 transition-all duration-500"
+              loading="lazy"
+            >
+            <div class="absolute top-3 left-3 px-2 py-1 bg-flux-bg/80 backdrop-blur-sm border border-flux-border">
+              <span class="font-mono text-[10px] tracking-widest uppercase text-flux-cyan">Featured</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-mono text-sm text-flux-text group-hover:text-flux-cyan transition-colors duration-150">NovaPay Dashboard</h3>
+                <p class="text-xs md:text-sm text-flux-muted mt-2 leading-relaxed">Real-time payment analytics platform built for fintech. Handles 50K+ transactions/sec with live data streaming and interactive charts.</p>
+              </div>
+              <i data-lucide="arrow-up-right" class="project-arrow w-4 h-4 text-flux-muted group-hover:text-flux-cyan transition-all duration-150 flex-shrink-0 mt-0.5"></i>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">React</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">TypeScript</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">WebSocket</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">D3.js</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="fade-in-up stagger-2 project-card group panel-glow corner-accent bg-flux-panel border border-flux-border hover:border-flux-cyan/30 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="relative overflow-hidden aspect-[16/10]">
+            <img
+              src="https://picsum.photos/seed/project-ai-tool/800/500.jpg"
+              alt="SynthMind AI"
+              class="project-image w-full h-full object-cover opacity-60 transition-all duration-500"
+              loading="lazy"
+            >
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-mono text-sm text-flux-text group-hover:text-flux-cyan transition-colors duration-150">SynthMind AI</h3>
+                <p class="text-xs md:text-sm text-flux-muted mt-2 leading-relaxed">AI-powered writing assistant with context-aware suggestions. Uses fine-tuned LLMs for tone matching and style consistency.</p>
+              </div>
+              <i data-lucide="arrow-up-right" class="project-arrow w-4 h-4 text-flux-muted group-hover:text-flux-cyan transition-all duration-150 flex-shrink-0 mt-0.5"></i>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">Next.js</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">Python</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">OpenAI</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">Redis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="fade-in-up stagger-3 project-card group panel-glow corner-accent bg-flux-panel border border-flux-border hover:border-flux-cyan/30 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="relative overflow-hidden aspect-[16/10]">
+            <img
+              src="https://picsum.photos/seed/project-ecommerce/800/500.jpg"
+              alt="Veltro Commerce"
+              class="project-image w-full h-full object-cover opacity-60 transition-all duration-500"
+              loading="lazy"
+            >
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-mono text-sm text-flux-text group-hover:text-flux-cyan transition-colors duration-150">Veltro Commerce</h3>
+                <p class="text-xs md:text-sm text-flux-muted mt-2 leading-relaxed">Headless e-commerce platform with sub-200ms page loads. Integrated Stripe payments and inventory management system.</p>
+              </div>
+              <i data-lucide="arrow-up-right" class="project-arrow w-4 h-4 text-flux-muted group-hover:text-flux-cyan transition-all duration-150 flex-shrink-0 mt-0.5"></i>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">Vue.js</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">Node.js</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">PostgreSQL</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">Stripe</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="fade-in-up stagger-4 project-card group panel-glow corner-accent bg-flux-panel border border-flux-border hover:border-flux-cyan/30 transition-all duration-300 overflow-hidden cursor-pointer">
+          <div class="relative overflow-hidden aspect-[16/10]">
+            <img
+              src="https://picsum.photos/seed/project-devtools/800/500.jpg"
+              alt="Flux CLI"
+              class="project-image w-full h-full object-cover opacity-60 transition-all duration-500"
+              loading="lazy"
+            >
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-mono text-sm text-flux-text group-hover:text-flux-cyan transition-colors duration-150">Flux CLI</h3>
+                <p class="text-xs md:text-sm text-flux-muted mt-2 leading-relaxed">Open-source developer tool for scaffolding and managing full-stack projects. 2K+ GitHub stars and growing community.</p>
+              </div>
+              <i data-lucide="arrow-up-right" class="project-arrow w-4 h-4 text-flux-muted group-hover:text-flux-cyan transition-all duration-150 flex-shrink-0 mt-0.5"></i>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">Rust</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">CLI</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">Open Source</span>
+              <span class="font-mono text-[10px] text-flux-muted px-2 py-0.5 border border-flux-border">npm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View all link -->
+      <div class="fade-in-up mt-8 flex justify-end">
+        <a href="#" class="group inline-flex items-center gap-2 font-mono text-xs text-flux-muted hover:text-flux-cyan transition-colors duration-150">
+          View all projects on GitHub
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RESUME SECTION ==================== -->
+  <section id="resume" class="py-20 md:py-24 border-t border-flux-border">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <!-- Section label -->
+      <div class="fade-in-up mb-12 flex items-center gap-4">
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-cyan">04</span>
+        <div class="w-12 h-px bg-flux-border"></div>
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-muted">Resume</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-7">
+          <h2 class="fade-in-up text-2xl md:text-3xl font-medium tracking-tight text-flux-text mb-4">
+            Want the full picture?
+          </h2>
+          <p class="fade-in-up stagger-1 text-sm md:text-base text-flux-muted leading-relaxed mb-6">
+            Download my resume for a complete overview of my experience, education, certifications, and professional history. Available in PDF format for easy viewing and sharing.
+          </p>
+
+          <!-- Experience highlights -->
+          <div class="fade-in-up stagger-2 space-y-4">
+            <div class="flex items-start gap-4 p-4 border border-flux-border bg-flux-panel">
+              <div class="w-8 h-8 border border-flux-border flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="briefcase" class="w-3.5 h-3.5 text-flux-cyan"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-flux-text">Senior Frontend Engineer — Stripe</div>
+                <div class="font-mono text-[10px] text-flux-muted mt-0.5">2022 – Present · San Francisco</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 border border-flux-border bg-flux-panel">
+              <div class="w-8 h-8 border border-flux-border flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="briefcase" class="w-3.5 h-3.5 text-flux-cyan"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-flux-text">Full-Stack Developer — Vercel</div>
+                <div class="font-mono text-[10px] text-flux-muted mt-0.5">2020 – 2022 · Remote</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 border border-flux-border bg-flux-panel">
+              <div class="w-8 h-8 border border-flux-border flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-flux-cyan"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs text-flux-text">B.S. Computer Science — UC Berkeley</div>
+                <div class="font-mono text-[10px] text-flux-muted mt-0.5">2016 – 2020 · Berkeley, CA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 flex justify-center">
+          <div class="fade-in-up stagger-3 panel-glow corner-accent bg-flux-panel border border-flux-border p-8 md:p-10 text-center w-full max-w-sm">
+            <div class="w-16 h-16 border border-flux-border flex items-center justify-center mx-auto mb-6">
+              <i data-lucide="file-text" class="w-7 h-7 text-flux-cyan"></i>
+            </div>
+            <div class="font-mono text-sm text-flux-text mb-1">resume.pdf</div>
+            <div class="font-mono text-[10px] text-flux-muted mb-6">PDF · 245 KB · Updated Jan 2025</div>
+            <a href="resume.pdf" download id="download-btn" class="group relative w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-flux-cyan text-black font-mono text-xs tracking-wide font-medium hover:bg-white transition-colors duration-150">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              DOWNLOAD RESUME
+            </a>
+            <div class="mt-4 font-mono text-[10px] text-flux-muted">
+              <i data-lucide="shield-check" class="w-3 h-3 inline text-emerald-500 mr-1"></i>
+              Secure and virus-free
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT SECTION ==================== -->
+  <section id="contact" class="py-20 md:py-24 border-t border-flux-border">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <!-- Section label -->
+      <div class="fade-in-up mb-12 flex items-center gap-4">
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-cyan">05</span>
+        <div class="w-12 h-px bg-flux-border"></div>
+        <span class="font-mono text-[10px] tracking-widest uppercase text-flux-muted">Get In Touch</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="md:col-span-5">
+          <h2 class="fade-in-up text-2xl md:text-3xl font-medium tracking-tight text-flux-text mb-4">
+            Let's build something together
+          </h2>
+          <p class="fade-in-up stagger-1 text-sm md:text-base text-flux-muted leading-relaxed mb-8">
+            Whether you have a project in mind, a job opportunity, or just want to say hello — I'd love to hear from you. I typically respond within 24 hours.
+          </p>
+
+          <!-- Contact info -->
+          <div class="fade-in-up stagger-2 space-y-4">
+            <div class="flex items-center gap-4 group">
+              <div class="w-10 h-10 border border-flux-border flex items-center justify-center group-hover:border-flux-cyan transition-colors duration-150">
+                <i data-lucide="mail" class="w-4 h-4 text-flux-muted group-hover:text-flux-cyan transition-colors duration-150"></i>
+              </div>
+              <div>
+                <div class="font-mono text-[10px] tracking-widest uppercase text-flux-muted mb-0.5">Email</div>
+                <a href="mailto:gummakiran0@gmail.com" class="font-mono text-sm text-flux-text hover:text-flux-cyan transition-colors duration-150">gummakiran0@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 group">
+              <div class="w-10 h-10 border border-flux-border flex items-center justify-center group-hover:border-flux-cyan transition-colors duration-150">
+                <i data-lucide="phone" class="w-4 h-4 text-flux-muted group-hover:text-flux-cyan transition-colors duration-150"></i>
+              </div>
+              <div>
+                <div class="font-mono text-[10px] tracking-widest uppercase text-flux-muted mb-0.5">Phone</div>
+                <a href="tel:+919281049872" class="font-mono text-sm text-flux-text hover:text-flux-cyan transition-colors duration-150">+91 9281049872</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 group">
+              <div class="w-10 h-10 border border-flux-border flex items-center justify-center group-hover:border-flux-cyan transition-colors duration-150">
+                <i data-lucide="map-pin" class="w-4 h-4 text-flux-muted group-hover:text-flux-cyan transition-colors duration-150"></i>
+              </div>
+              <div>
+                <div class="font-mono text-[10px] tracking-widest uppercase text-flux-muted mb-0.5">Location</div>
+                <span class="font-mono text-sm text-flux-text">vijayawada, India</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social links -->
+          <div class="fade-in-up stagger-3 mt-8 flex items-center gap-3">
+            <a href="#" class="w-10 h-10 border border-flux-border flex items-center justify-center text-flux-muted hover:text-flux-cyan hover:border-flux-cyan transition-all duration-150">
+              <i data-lucide="github" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-10 h-10 border border-flux-border flex items-center justify-center text-flux-muted hover:text-flux-cyan hover:border-flux-cyan transition-all duration-150">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-10 h-10 border border-flux-border flex items-center justify-center text-flux-muted hover:text-flux-cyan hover:border-flux-cyan transition-all duration-150">
+              <i data-lucide="twitter" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-10 h-10 border border-flux-border flex items-center justify-center text-flux-muted hover:text-flux-cyan hover:border-flux-cyan transition-all duration-150">
+              <i data-lucide="dribbble" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="md:col-span-7">
+          <form id="contact-form" class="fade-in-up stagger-2 panel-glow bg-flux-panel border border-flux-border p-6 md:p-8 space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="font-mono text-[10px] tracking-widest uppercase text-flux-muted block mb-2">Name *</label>
+                <input type="text" name="name" required
+                  class="w-full bg-flux-bg border border-flux-border px-4 py-2.5 font-mono text-sm text-flux-text placeholder:text-flux-muted/50 focus:outline-none focus:border-flux-cyan transition-colors duration-150"
+                  placeholder="John Doe">
+              </div>
+              <div>
+                <label class="font-mono text-[10px] tracking-widest uppercase text-flux-muted block mb-2">Email *</label>
+                <input type="email" name="email" required
+                  class="w-full bg-flux-bg border border-flux-border px-4 py-2.5 font-mono text-sm text-flux-text placeholder:text-flux-muted/50 focus:outline-none focus:border-flux-cyan transition-colors duration-150"
+                  placeholder="gummakiran0@gmail.com">
+              </div>
+            </div>
+            <div>
+              <label class="font-mono text-[10px] tracking-widest uppercase text-flux-muted block mb-2">Subject</label>
+              <input type="text" name="subject"
+                class="w-full bg-flux-bg border border-flux-border px-4 py-2.5 font-mono text-sm text-flux-text placeholder:text-flux-muted/50 focus:outline-none focus:border-flux-cyan transition-colors duration-150"
+                placeholder="Project inquiry">
+            </div>
+            <div>
+              <label class="font-mono text-[10px] tracking-widest uppercase text-flux-muted block mb-2">Message *</label>
+              <textarea name="message" rows="5" required
+                class="w-full bg-flux-bg border border-flux-border px-4 py-2.5 font-mono text-sm text-flux-text placeholder:text-flux-muted/50 focus:outline-none focus:border-flux-cyan transition-colors duration-150 resize-none"
+                placeholder="Tell me about your project..."></textarea>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <span id="form-status" class="font-mono text-[10px] text-flux-muted"></span>
+              <button type="submit" id="submit-btn"
+                class="group inline-flex items-center gap-2 px-6 py-3 bg-flux-cyan text-black font-mono text-xs tracking-wide font-medium hover:bg-white transition-colors duration-150">
+                SEND MESSAGE
+                <i data-lucide="send" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t border-flux-border py-8">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <!-- Left -->
+        <div class="flex items-center gap-4">
+          <span class="font-mono text-[10px] tracking-widest uppercase text-flux-muted">
+            © 2025 KIRAN
+          </span>
+          <span class="hidden md:inline text-flux-border">·</span>
+          <span class="hidden md:inline font-mono text-[10px] tracking-widest uppercase text-flux-muted">
+            All rights reserved
+          </span>
+        </div>
+
+        <!-- Center -->
+        <div class="flex items-center gap-1 text-flux-muted">
+          <span class="font-mono text-[10px] tracking-wider">Built with</span>
+          <i data-lucide="heart" class="w-3 h-3 text-flux-cyan mx-0.5"></i>
+          <span class="font-mono text-[10px] tracking-wider">and lots of</span>
+          <i data-lucide="coffee" class="w-3 h-3 text-flux-cyan mx-0.5"></i>
+        </div>
+
+        <!-- Right -->
+        <div class="flex items-center gap-6">
+          <a href="#" class="font-mono text-[10px] tracking-widest uppercase text-flux-muted hover:text-flux-cyan transition-colors duration-150">GitHub</a>
+          <a href="#" class="font-mono text-[10px] tracking-widest uppercase text-flux-muted hover:text-flux-cyan transition-colors duration-150">LinkedIn</a>
+          <a href="#header" class="font-mono text-[10px] tracking-widest uppercase text-flux-muted hover:text-flux-cyan transition-colors duration-150 flex items-center gap-1">
+            <i data-lucide="arrow-up" class="w-3 h-3"></i>
+            TOP
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom decorative line -->
+      <div class="mt-6 h-px w-full" style="background: linear-gradient(90deg, transparent, rgba(125, 253, 254, 0.15), transparent);"></div>
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script src="script.js"></script>
+</body>
+</html>
